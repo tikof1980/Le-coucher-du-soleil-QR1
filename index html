@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hôtel LE COUCHER DU SOLEIL</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+body{background:#f5f5f5;color:#333;padding-bottom:100px}
+.header{background:linear-gradient(135deg,#ff6b35,#f7931e,#ffd700);color:white;padding:40px 20px;text-align:center}
+.hotel-title{font-family:'Playfair Display',serif;font-size:1.8em;font-weight:900;letter-spacing:2px}
+.hotel-subtitle{font-family:'Playfair Display',serif;font-size:2.4em;font-weight:900;margin:8px 0}
+.tagline{font-size:1em;opacity:.9;font-style:italic}
+.navbar{background:#2c3e50;display:flex;justify-content:center;flex-wrap:wrap;padding:8px;position:sticky;top:0;z-index:100}
+.nav-btn{background:transparent;color:white;border:2px solid transparent;padding:9px 15px;margin:3px;cursor:pointer;border-radius:20px;font-size:.9em;transition:all .3s}
+.nav-btn:hover,.nav-btn.active{background:#ff6b35;border-color:#ffd700}
+.section{display:none;padding:25px 15px;max-width:1200px;margin:0 auto}
+.section.active{display:block;animation:fadeIn .4s}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.section-title{font-family:'Playfair Display',serif;font-size:2em;text-align:center;color:#2c3e50;margin-bottom:20px}
+.section-title::after{content:'';display:block;width:70px;height:4px;background:linear-gradient(90deg,#ff6b35,#ffd700);margin:8px auto;border-radius:2px}
+.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;margin-bottom:30px}
+.feature-card{background:white;padding:20px;border-radius:15px;text-align:center;box-shadow:0 4px 15px rgba(0,0,0,.1);transition:transform .3s}
+.feature-card:hover{transform:translateY(-4px)}
+.feature-card .icon{font-size:2.5em;display:block;margin-bottom:8px}
+.feature-card h3{color:#ff6b35;margin-bottom:6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:25px}
+.card{background:white;border-radius:18px;overflow:hidden;box-shadow:0 6px 20px rgba(0,0,0,.12);transition:transform .3s}
+.card:hover{transform:translateY(-4px)}
+.slider-box{position:relative;width:100%;overflow:hidden;background:#ecf0f1}
+.slider-box img{width:100%;height:100%;object-fit:cover;cursor:pointer;display:block;transition:opacity .3s}
+.slider-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;color:#bbb;gap:8px}
+.slider-placeholder span:first-child{font-size:3em}
+.slide-prev,.slide-next{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.55);color:white;border:none;width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:1.3em;z-index:5;transition:background .2s}
+.slide-prev{left:8px}
+.slide-next{right:8px}
+.slide-prev:hover,.slide-next:hover{background:rgba(255,107,53,.8)}
+.img-counter{position:absolute;top:8px;right:10px;background:rgba(0,0,0,.65);color:white;padding:4px 10px;border-radius:12px;font-size:.8em;z-index:5}
+.dots{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);display:flex;gap:5px;z-index:5}
+.dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.5);cursor:pointer;border:none}
+.dot.on{background:#ff6b35}
+.card-body{padding:18px}
+.card-body h3{color:#2c3e50;font-size:1.3em;margin-bottom:6px}
+.card-body p{color:#666;line-height:1.5;margin-bottom:8px;font-size:.95em}
+.price{color:#ff6b35;font-size:1.25em;font-weight:700;margin:10px 0}
+.btn{background:linear-gradient(135deg,#ff6b35,#f7931e);color:white;border:none;padding:11px 22px;border-radius:22px;cursor:pointer;font-size:.95em;font-weight:600;width:100%;margin-top:6px;transition:all .3s;display:block}
+.btn:hover{transform:scale(1.02);box-shadow:0 4px 15px rgba(255,107,53,.4)}
+.btn-blue{background:linear-gradient(135deg,#3498db,#2980b9)}
+.btn-red{background:linear-gradient(135deg,#e74c3c,#c0392b)}
+.btn-green{background:linear-gradient(135deg,#27ae60,#229954)}
+.btn-purple{background:linear-gradient(135deg,#8e44ad,#6c3483)}
+.btn-gold{background:linear-gradient(135deg,#f39c12,#e67e22)}
+.btn-sm{padding:8px 14px;font-size:.85em;width:auto;display:inline-block}
+.btn-outline{background:transparent;border:2px solid #ff6b35;color:#ff6b35}
+.btn-outline:hover{background:#ff6b35;color:white}
+.admin-bar{background:#ecf0f1;border-top:2px dashed #ff6b35;padding:10px;display:none;gap:8px;flex-wrap:wrap;justify-content:center}
+.admin-mode .admin-bar{display:flex}
+.admin-badge{position:fixed;top:0;left:0;right:0;background:linear-gradient(135deg,#27ae60,#229954);color:white;text-align:center;padding:10px;font-weight:600;z-index:200;display:none}
+.admin-mode .admin-badge{display:block}
+.form-group{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+.form-group label{font-weight:600;color:#2c3e50;font-size:.95em}
+.form-group input,.form-group select,.form-group textarea{padding:11px;border:2px solid #ecf0f1;border-radius:10px;font-size:.95em;font-family:inherit;transition:border .2s}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:#ff6b35}
+.form-wrap{background:white;padding:25px;border-radius:18px;max-width:580px;margin:0 auto;box-shadow:0 5px 20px rgba(0,0,0,.1)}
+.cart-box{background:white;padding:22px;border-radius:15px;margin-top:25px;box-shadow:0 4px 15px rgba(0,0,0,.1)}
+#cart-list{list-style:none}
+#cart-list li{padding:8px 0;border-bottom:1px solid #f0f0f0;display:flex;justify-content:space-between;align-items:center}
+.cart-total{font-size:1.3em;font-weight:700;color:#ff6b35;margin:12px 0}
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;margin-bottom:25px}
+.contact-card{background:white;padding:20px;border-radius:15px;text-align:center;box-shadow:0 4px 15px rgba(0,0,0,.1)}
+.contact-card h3{color:#ff6b35;margin-bottom:8px}
+.contact-card a{color:#2c3e50;text-decoration:none;font-weight:600}
+.social-row{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.social-btn{padding:13px 25px;border-radius:25px;color:white;font-weight:600;text-decoration:none;font-size:1em;cursor:pointer;border:none;transition:transform .2s}
+.social-btn:hover{transform:scale(1.05)}
+.wa{background:#25D366}
+.phone{background:#3498db}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:500;justify-content:center;align-items:center;padding:15px}
+.modal.open{display:flex}
+.modal-box{background:white;padding:28px;border-radius:20px;max-width:500px;width:100%;max-height:90vh;overflow-y:auto;position:relative;animation:popIn .3s}
+@keyframes popIn{from{transform:scale(.8);opacity:0}to{transform:scale(1);opacity:1}}
+.modal-close{position:absolute;top:12px;right:16px;font-size:2em;cursor:pointer;color:#aaa;line-height:1;background:none;border:none}
+.modal-close:hover{color:#e74c3c}
+.pay-btns{display:flex;flex-direction:column;gap:10px;margin-top:15px}
+.pay-btn{padding:14px;border:none;border-radius:12px;color:white;font-size:1em;font-weight:600;cursor:pointer;transition:transform .2s}
+.pay-btn:hover{transform:scale(1.02)}
+.orange-pay{background:#ff6600}
+.mtn-pay{background:#ffcc00;color:#333}
+.wave-pay{background:#00d4ff}
+.card-pay{background:#2c3e50}
+.edit-imgs{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:8px;margin:12px 0}
+.edit-img-wrap{position:relative}
+.edit-img-wrap img{width:100%;height:80px;object-fit:cover;border-radius:8px;cursor:pointer}
+.del-img-btn{position:absolute;top:3px;right:3px;background:#e74c3c;color:white;border:none;border-radius:50%;width:22px;height:22px;font-size:.85em;cursor:pointer;font-weight:700}
+.adult-warn{background:linear-gradient(135deg,#c0392b,#e74c3c);color:white;padding:18px;border-radius:12px;text-align:center;margin-bottom:20px}
+.adult-warn h3{margin-bottom:5px}
+.toast{position:fixed;top:80px;left:50%;transform:translateX(-50%);background:#27ae60;color:white;padding:13px 28px;border-radius:25px;box-shadow:0 4px 20px rgba(0,0,0,.3);z-index:1000;display:none;font-weight:600;max-width:90%;text-align:center}
+.toast.show{display:block;animation:slideD .3s}
+@keyframes slideD{from{top:0;opacity:0}to{top:80px;opacity:1}}
+.img-fullscreen{display:none;position:fixed;inset:0;background:rgba(0,0,0,.96);z-index:999;justify-content:center;align-items:center}
+.img-fullscreen.open{display:flex}
+.img-fullscreen img{max-width:97%;max-height:93vh;object-fit:contain;border-radius:8px}
+.close-fs{position:absolute;top:15px;right:20px;color:white;font-size:3em;cursor:pointer;border:none;background:none}
+
+/* QR SECTION */
+.qr-wrap{max-width:420px;margin:0 auto}
+.qr-card{background:white;border-radius:22px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.15)}
+.qr-head{background:linear-gradient(135deg,#1a1a2e,#0f3460);padding:25px 20px;text-align:center;color:white}
+.qr-head h3{font-family:'Playfair Display',serif;font-size:1.4em}
+.qr-head p{opacity:.8;font-size:.9em;margin-top:4px}
+.qr-body{padding:25px;display:flex;flex-direction:column;align-items:center;gap:18px}
+.qr-canvas-wrap{position:relative;display:inline-block;border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.2)}
+#qr-canvas{display:block;border-radius:12px}
+.qr-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%}
+.qr-url{background:#f8f9fa;border:1.5px solid #ecf0f1;border-radius:8px;padding:10px 12px;font-size:.82em;color:#666;word-break:break-all;text-align:center;width:100%}
+.qr-foot{background:linear-gradient(135deg,#ff6b35,#ffd700);padding:14px;text-align:center;color:white;font-weight:600}
+
+.room-ht .slider-box{height:300px}
+.companion-ht .slider-box{height:370px}
+.menu-ht .slider-box{height:220px}
+.add-btn-row{text-align:center;margin-bottom:20px}
+.home-rooms{margin-top:20px}
+
+@media(max-width:600px){
+  .hotel-title{font-size:1.4em}
+  .hotel-subtitle{font-size:1.7em}
+  .nav-btn{padding:7px 10px;font-size:.8em}
+  .grid{grid-template-columns:1fr}
+  .qr-actions{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="admin-badge" id="admin-badge">🔧 MODE ADMIN ACTIF — Vous pouvez modifier, ajouter, supprimer</div>
+<div class="toast" id="toast"></div>
+
+<!-- FULLSCREEN IMAGE -->
+<div class="img-fullscreen" id="img-fs">
+  <button class="close-fs" id="close-fs">✕</button>
+  <img id="fs-img" src="" alt="Photo">
+</div>
+
+<header class="header">
+  <div class="hotel-title">🌅 HÔTEL &amp; RÉSIDENCE</div>
+  <div class="hotel-subtitle">LE COUCHER DU SOLEIL</div>
+  <div class="tagline">Élégance • Confort • Prestige &nbsp;|&nbsp; 📞 07 08 53 77 14</div>
+</header>
+
+<nav class="navbar" id="navbar">
+  <button class="nav-btn active" data-sec="accueil">🏠 Accueil</button>
+  <button class="nav-btn" data-sec="chambres">🛏️ Chambres</button>
+  <button class="nav-btn" data-sec="restaurant">🍽️ Restaurant</button>
+  <button class="nav-btn" data-sec="compagnie">💋 Compagnie</button>
+  <button class="nav-btn" data-sec="reservation">📅 Réserver</button>
+  <button class="nav-btn" data-sec="contact">📞 Contact</button>
+  <button class="nav-btn" data-sec="qrcode">📱 QR Code</button>
+</nav>
+
+<!-- ====== ACCUEIL ====== -->
+<section id="accueil" class="section active">
+  <div style="text-align:center;margin-bottom:25px">
+    <h2 style="font-family:'Playfair Display',serif;font-size:1.9em;color:#2c3e50">Bienvenue dans votre paradis 🌅</h2>
+    <p style="color:#666;margin-top:8px;font-size:1.05em">Réservez, commandez et profitez depuis votre téléphone</p>
+  </div>
+  <div class="features">
+    <div class="feature-card"><span class="icon">🛏️</span><h3>Chambres</h3><p>Luxueuses et confortables</p></div>
+    <div class="feature-card"><span class="icon">🍴</span><h3>Restaurant</h3><p>Cuisine gastronomique</p></div>
+    <div class="feature-card"><span class="icon">💋</span><h3>Compagnie</h3><p>Service discret 24h/24</p></div>
+    <div class="feature-card"><span class="icon">📅</span><h3>Réservation</h3><p>En ligne, simple et rapide</p></div>
+  </div>
+  <h3 style="font-family:'Playfair Display',serif;font-size:1.6em;text-align:center;color:#2c3e50;margin-bottom:15px">🛏️ Nos Chambres</h3>
+  <div class="grid home-rooms" id="home-grid"></div>
+</section>
+
+<!-- ====== CHAMBRES ====== -->
+<section id="chambres" class="section">
+  <h2 class="section-title">Toutes Nos Chambres</h2>
+  <div class="add-btn-row" id="add-room-row" style="display:none">
+    <button class="btn btn-green btn-sm" id="add-room-btn">➕ Ajouter une chambre</button>
+  </div>
+  <div class="grid" id="rooms-grid"></div>
+</section>
+
+<!-- ====== RESTAURANT ====== -->
+<section id="restaurant" class="section">
+  <h2 class="section-title">🍽️ Restaurant</h2>
+  <div class="add-btn-row" id="add-menu-row" style="display:none">
+    <button class="btn
